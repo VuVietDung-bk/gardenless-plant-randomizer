@@ -19,4 +19,4 @@ if __name__ == "__main__":
         )
         bot = GardendlessBot()
         webserver.keep_alive()
-        bot.run(TOKEN, log_handler=handler, log_level=logging.DEBUG)
+        bot.run(TOKEN, log_handler=handler, log_level=logging.INFO)

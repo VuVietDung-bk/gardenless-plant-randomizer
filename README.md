@@ -4,18 +4,28 @@ A Discord bot that randomizes Plants vs Zombies 2 (PvZ2) plants with various fil
 
 ## Features
 
-- **`/randomplants`** - Randomize plants from the full PvZ2 list with optional filters:
+- **`/randomplants`** - Randomize plants from the full PvZ2 list (gemium + epic + world + mints) with optional filters:
   - `plant_count` (required) - Number of plants to randomize
   - `forced_sun` - First plant will always be a sun producer
   - `only_obtainable` - Exclude unobtainable plants
+  - `no_gem` - Exclude gemium plants
+  - `no_epic` - Exclude epic plants
   - `no_mint` - Exclude all mint plants
+  - `no_aquatic` - Exclude aquatic plants
   - `world_only` - Only select from world plants
+  - `min_cost` - Minimum seed packet cost filter
+  - `max_cost` - Maximum seed packet cost filter
 
 - **`/randomplants_nosun`** - Randomize plants excluding all sun-related plants:
   - `plant_count` (required) - Number of plants to randomize
   - `only_obtainable` - Exclude unobtainable plants
+  - `no_gem` - Exclude gemium plants
+  - `no_epic` - Exclude epic plants
   - `no_mint` - Exclude all mint plants
+  - `no_aquatic` - Exclude aquatic plants
   - `world_only` - Only select from world plants
+  - `min_cost` - Minimum seed packet cost filter
+  - `max_cost` - Maximum seed packet cost filter
 
 - **`/help`** - Display the command guide and usage instructions
 
@@ -103,10 +113,13 @@ The bot uses the following plant categories from `random_plants.py`:
 
 - **sun_producers** - Plants that produce sun
 - **sun_plants** - All sun-related plants
-- **premium_plants** - Premium/gacha plants
+- **gemium_plants** - Gemium/premium tier plants
+- **epic_plants** - Epic tier plants
 - **world_plants** - Plants from world adventure
 - **mints** - Mint plants
+- **aquatic_plants** - Aquatic/water plants
 - **unobtainable_plants** - Plants that cannot be obtained
+- **sun_cost** - Dictionary with seed packet costs for each plant
 
 ## Usage Examples
 
@@ -130,21 +143,44 @@ The bot uses the following plant categories from `random_plants.py`:
 /randomplants plant_count: 4 world_only: true
 ```
 
+### Plants with cost between 50-200 sun
+```
+/randomplants plant_count: 5 min_cost: 50 max_cost: 200
+```
+
+### No gemium, no epic, no aquatic
+```
+/randomplants plant_count: 3 no_gem: true no_epic: true no_aquatic: true
+```
+
 ### Randomize plants without any sun plants
 ```
 /randomplants_nosun plant_count: 5
 ```
 
-### World plants without sun and without mints
+### World plants without sun, no mints, cost >= 100
 ```
-/randomplants_nosun plant_count: 3 world_only: true no_mint: true
+/randomplants_nosun plant_count: 3 world_only: true no_mint: true min_cost: 100
+```
+
+### Complex mix: no gem, no epic, obtainable only (no sun)
+```
+/randomplants_nosun plant_count: 4 no_gem: true no_epic: true only_obtainable: true
 ```
 
 ## Filter Combinations
 
-All filter flags can be combined:
+All flags can be freely combined:
 - `forced_sun` + `no_mint` + `only_obtainable` + `world_only` ✓
+- `no_gem` + `no_epic` + `min_cost: 100` + `max_cost: 300` ✓
+- `no_aquatic` + `no_mint` + `world_only` ✓
 - All other combinations work as well
+
+**Filter logic:**
+1. Rarity filters (`no_gem`, `no_epic`, `no_mint`) are applied first
+2. Feature filters (`exclude_sun`, `no_aquatic`) are applied next
+3. Obtainability filter (`only_obtainable`) is applied
+4. Cost filters (`min_cost`, `max_cost`) are applied last
 
 When filters conflict with available plants (e.g., requesting 100 plants when only 50 exist after filtering), the bot will return an error message.
 
