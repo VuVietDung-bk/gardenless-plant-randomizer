@@ -63,6 +63,27 @@ python3 main.py
 
 The bot will start and automatically sync slash commands with Discord.
 
+## Deploying on Render
+
+### Setup Instructions
+
+1. Push your code to GitHub
+2. Go to [Render.com](https://render.com/) and create a new Web Service
+3. Connect your GitHub repository
+4. Configure the service:
+   - **Build command**: `pip install -r requirements.txt`
+   - **Start command**: `python3 main.py`
+   - **Environment Variables**: Add `DISCORD_BOT_TOKEN` with your bot token value
+5. Deploy!
+
+### Troubleshooting Render Deployment
+
+**If you get HTTPException at login:**
+- ✓ Verify `DISCORD_BOT_TOKEN` is set in Render's Environment settings (not in the code)
+- ✓ Check token has NO extra spaces or quotes
+- ✓ Regenerate token in Discord Developer Portal if it's old
+- ✓ Check main.py output for token validation messages
+
 ## File Structure
 
 ```
