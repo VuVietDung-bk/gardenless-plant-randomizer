@@ -30,16 +30,17 @@ gemium_plants = [
     "Snowdrop",
     "Zoybean Pod",
     "Pyre Vine",
-    "Gloom Vine",
     "Cran Jelly",
     "Dragon Bruit",
-    "Shadow Peashooter",
-    "Murkadamia Nut",
-    "Noctarine"
+    "Snap Pea"
 ]
 
 # List of all epic plants (including sun producers)
 epic_plants = [
+    "Gloom Vine",
+    "Shadow Peashooter",
+    "Murkadamia Nut",
+    "Noctarine",
     "Shooting Starfruit",
     "Strawburst",
     "Aloe",
@@ -191,7 +192,8 @@ unobtainable_plants = [
     "Conceal-mint",
     "Appease-mint",
     "Enlighten-mint",
-    "Noctarine"
+    "Noctarine",
+    "Gloom Vine"
 ]
 
 # List of sun producers
@@ -380,6 +382,7 @@ sun_cost: Dict[str, int] = {
     "Shadow Peashooter" : 125,
     "Murkadamia Nut" : 100,
     "Noctarine" : 150,
+    "Snap Pea" : 200,
     "Fila-mint" : 0,
     "Reinforce-mint" : 0,
     "Bombard-mint" : 0,
